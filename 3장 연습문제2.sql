@@ -1,0 +1,15 @@
+select count(*) from book;
+select count(distinct publisher) from book;
+select name, address from customer;
+select orderid from orders where orderdate between '2014-07-04' and '2014-07-07';
+select orderid from orders where orderdate not in (select orderid from orders where orderdate between '2014-07-04' and '2014-07-07');
+select orderid from orders where orderdate not between '2014-07-04' and '2014-07-07';
+select name, address from customer where name like '김%';
+select name, address from customer where name like '김%아';
+select name from customer where custid not in (select distinct custid from orders);
+select name from customer where name not in (select name from customer inner join orders on customer.custid = orders.custid);
+select sum(saleprice), avg(saleprice) from orders;
+select c.name, sum(o.saleprice) from customer c left outer join orders o on c.custid=o.custid group by c.name;
+select name, bookname from customer c inner join orders o on c.custid = o.custid inner join book b on o.bookid = b.bookid order by name;
+select * from book b inner join orders o on b.bookid = o.bookid and price - saleprice = (select max(price-saleprice) from book b inner join orders o on b.bookid = o.bookid);
+select name, avg(saleprice) from customer c inner join orders o on c.custid = o.custid group by c.custid having avg(o.saleprice) > (select avg(saleprice) from orders);
