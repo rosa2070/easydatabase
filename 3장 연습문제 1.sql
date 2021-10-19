@@ -1,0 +1,11 @@
+select * from book;
+select * from customer;
+select * from orders;
+select bookname from book where bookid='1';
+select bookname from book where price >= 20000;
+select name, sum(saleprice) from customer, orders where customer.custid = orders.custid and customer.name='박지성';
+select name, count(*) from customer, orders where customer.custid = orders.custid and customer.name='박지성';
+select customer.name, count(distinct publisher) from customer, book, orders where customer.custid = orders.custid and book.bookid = orders.bookid and customer.name='박지성';
+select bookname, price, price - saleprice from customer, book, orders where customer.custid = orders.custid and book.bookid = orders.bookid and customer.name='박지성';
+select bookname from book where bookname not in (select bookname from book, orders where book.bookid = orders.bookid and orders.custid = 1);
+select bookname from book where not exists (select bookname from orders where book.bookid = orders.bookid and orders.custid = (select custid from customer where name = '박지성'));
