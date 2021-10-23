@@ -1,0 +1,1 @@
+select abs(-78), abs(78);
